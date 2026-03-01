@@ -100,44 +100,70 @@ export default function App() {
     } catch { return c }
   }
 
-  async function reviewCode() {
-    if (loading) return
-    setLoading(true)
-    setReview('')
-    setDone(false)
+    async function reviewCode() {
+    if (loading) return;
 
-    // Smart prompt — AI decides if correct or wrong and responds accordingly
+    if (!code.trim()) {
+      setReview("**Error:** Code cannot be empty.");
+      return;
+    }
+
+    setLoading(true);
+    setReview("");
+    setDone(false);
+
     const prompt = `You are an expert ${L.label} code reviewer.
 
-Analyze the following ${L.label} code carefully.
+  Analyze the following ${L.label} code carefully.
 
-If the code is CORRECT:
-- Start with a brief "✅ Code looks good!" confirmation
-- Explain what the code does in 1-2 sentences
-- Give specific, actionable suggestions to improve it (performance, readability, best practices, edge cases)
-- Show improved code snippets where helpful
+  If the code is CORRECT:
+  - Start with "✅ Code looks good!"
+  - Explain briefly what it does
+  - Suggest improvements with better code snippets
 
-If the code has ERRORS or BUGS:
-- Start with "❌ Found issues in your code"
-- Clearly explain what is wrong and why
-- Point out the exact problematic lines
-- Provide the fully corrected working code in a code block
+  If the code has ERRORS:
+  - Start with "❌ Found issues in your code"
+  - Explain clearly what is wrong
+  - Provide fully corrected working code
 
-Be direct, concise, and developer-friendly. Use markdown formatting.
+  Use markdown formatting.
 
-\`\`\`${L.prism}
-${code}
-\`\`\``
+  \`\`\`${L.prism}
+  ${code}
+  \`\`\``;
 
     try {
-      const res = await axios.post('http://localhost:3000/ai/get-review', { code: prompt })
-      setReview(res.data)
-      setDone(true)
-    } catch {
-      setReview('**Connection Error**\n\nCould not reach `localhost:3000`. Make sure your backend server is running.')
-      setDone(true)
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/ai/get-review`,
+        { code: prompt },
+        {
+          headers: { "Content-Type": "application/json" },
+          timeout: 20000, // 20 sec safety
+        }
+      );
+
+      if (res.data?.success && typeof res.data.review === "string") {
+        setReview(res.data.review);
+      } else {
+        setReview(`**Error:** ${res.data?.message || "Unexpected server response"}`);
+      }
+
+      setDone(true);
+
+    } catch (error) {
+      console.error("Analyze Error:", error);
+
+      if (error.code === "ECONNABORTED") {
+        setReview("**Timeout Error:** AI response took too long.");
+      } else if (error.response) {
+        setReview(`**Server Error (${error.response.status})**`);
+      } else {
+        setReview("**Connection Error:** Make sure backend is running.");
+      }
+
+      setDone(true);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 

@@ -4,13 +4,19 @@ import aiRoutes from "./routes/ai.routes.js";
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+// Middlewares
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+
+app.use(express.json({ limit: "1mb" }));
+
+// Routes
+app.use("/ai", aiRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Backend running. Use /ai/review");
+  res.status(200).json({ status: "Server running" });
 });
-
-app.use("/ai", aiRoutes);
 
 export default app;
