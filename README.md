@@ -70,7 +70,7 @@ cd backend
 npm install
 ```
 
-Create a `.env` file inside `server` folder:
+Create a `.env` file inside `backend` folder:
 
 ```env
 GEMINI_API_KEY=your_api_key_here
@@ -91,6 +91,17 @@ Open a new terminal:
 ```bash
 cd frontend
 npm install
+```
+
+Create a `.env` file inside `frontend` folder:
+
+```env
+VITE_API_URL=your_vite_api_url_here
+```
+
+Run frontend:
+
+```bash
 npm run dev
 ```
 
