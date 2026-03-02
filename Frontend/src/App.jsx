@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import "prismjs/themes/prism-tomorrow.css"
-import Editor from "react-simple-code-editor"
+import Editor from "@monaco-editor/react";
 import Prism from "prismjs"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-python"
@@ -222,20 +222,12 @@ export default function App() {
 
           <div className="editor-scroll">
             <Editor
-              value={code}
-              onValueChange={setCode}
-              highlight={highlight}
-              padding={24}
-              style={{
-                fontFamily: '"Fira Code","Cascadia Code","JetBrains Mono",monospace',
-                fontSize: 13.5,
-                lineHeight: 1.9,
-                minHeight: '100%',
-                background: 'transparent',
-                color: '#e2e8f0',
-                caretColor: L.color,
-              }}
-            />
+            height="100%"
+            defaultLanguage="javascript"
+            theme="vs-dark"
+            value={code}
+            onChange={(value) => setCode(value)}
+          />
           </div>
 
           <div className="btn-dock">

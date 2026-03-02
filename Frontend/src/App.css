@@ -1,11 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 /* ── Reset Vite defaults ── */
-html,body{width:100%!important;height:100%!important;margin:0!important;padding:0!important;display:block!important;overflow:hidden!important;min-width:unset!important;min-height:unset!important;}
-#root{width:100%;height:100%;display:flex;flex-direction:column;}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 :root{
-  --bg:#04040f;
+  --bg:#1e1e1e;
   --border:rgba(255,255,255,0.07);
   --fuchsia:#e879f9;--cyan:#22d3ee;--violet:#a78bfa;
   --emerald:#34d399;--rose:#fb7185;
@@ -54,24 +70,51 @@ html,body{width:100%!important;height:100%!important;margin:0!important;padding:
 .col-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
 /* ── Workspace ── */
-.workspace{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0;gap:1px;background:rgba(255,255,255,0.05);position:relative;z-index:1;}
-
+.workspace {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
 /* ── Glass Panels ── */
-.glass-panel{display:flex;flex-direction:column;min-height:0;overflow:hidden;position:relative;background:linear-gradient(160deg,rgba(255,255,255,0.055) 0%,rgba(255,255,255,0.02) 40%,rgba(255,255,255,0.035) 100%);backdrop-filter:blur(40px) saturate(160%);-webkit-backdrop-filter:blur(40px) saturate(160%);box-shadow:1px 0 0 rgba(255,255,255,0.06) inset,-1px 0 0 rgba(0,0,0,0.3) inset;}
+.glass-panel{
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  overflow:hidden;
+  background:#1e1e1e;
+  border-right:1px solid #2a2a2a;
+}
 .glass-edge-top{position:absolute;top:0;left:0;right:0;height:1px;z-index:10;background:linear-gradient(90deg,transparent,var(--edge-color,rgba(232,121,249,0.7)) 30%,rgba(255,255,255,0.5) 50%,var(--edge-color,rgba(167,139,250,0.7)) 70%,transparent);}
 .glass-edge-left{position:absolute;top:0;left:0;bottom:0;width:1px;background:linear-gradient(180deg,rgba(255,255,255,0.15),rgba(255,255,255,0.04),transparent);z-index:10;}
 .glass-edge-right{position:absolute;top:0;right:0;bottom:0;width:1px;background:linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.03),transparent);z-index:10;}
 
 /* ── Editor ── */
-.editor-scroll{flex:1;overflow:auto;min-height:0;background:linear-gradient(180deg,rgba(232,121,249,0.025) 0%,rgba(167,139,250,0.015) 30%,transparent 60%);}
-.editor-scroll::-webkit-scrollbar{width:5px;height:5px;}
-.editor-scroll::-webkit-scrollbar-thumb{background:rgba(167,139,250,0.3);border-radius:99px;}
-.editor-scroll pre,.editor-scroll textarea{background:transparent!important;}
+.editor-scroll {
+  flex: 1;
+  overflow: auto;
+  min-height: 0; /* important for flex container */
+}
 
 /* ── Button dock ── */
-.btn-dock{padding:.85rem 1rem;flex-shrink:0;background:rgba(0,0,0,0.2);border-top:1px solid var(--border);position:relative;}
-.btn-dock::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);}
+.review-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
 
+.btn-dock {
+  flex-shrink: 0; /* button kabhi compress na ho */
+  position: relative;
+  z-index: 10;
+}
+.review-scroll {
+  flex: 1; /* AI review output scrollable aur upar ka space le */
+  overflow-y: auto;
+  min-height: 0;
+  padding: 1rem;
+}
 /* ── Glass Button ── */
 .glass-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:.55rem;padding:.85rem 1rem;border-radius:10px;border:none;cursor:pointer;font-family:var(--font);font-size:.9rem;font-weight:700;letter-spacing:.02em;color:#fff;position:relative;overflow:hidden;transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;}
 .glass-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,0.18) 50%,transparent 75%);transform:translateX(-120%) skewX(-6deg);transition:transform .55s ease;}
@@ -145,3 +188,14 @@ html,body{width:100%!important;height:100%!important;margin:0!important;padding:
 .md-body hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);margin:1.5em 0;}
 .md-body a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(34,211,238,.3);}
 .md-body a:hover{border-color:var(--cyan);}
+/* VS Code Dark+ Syntax Colors */
+
+.token.comment { color: #6a9955; }
+.token.keyword { color: #569cd6; }
+.token.string { color: #ce9178; }
+.token.number { color: #b5cea8; }
+.token.function { color: #dcdcaa; }
+.token.boolean { color: #569cd6; }
+.token.class-name { color: #4ec9b0; }
+.token.operator { color: #d4d4d4; }
+.token.punctuation { color: #d4d4d4; }
