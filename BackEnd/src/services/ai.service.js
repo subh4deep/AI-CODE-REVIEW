@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+console.log("ENV KEY:", process.env.GEMINI_API_KEY); 
 
 // Client automatically reads GEMINI_API_KEY from env
 const ai = new GoogleGenAI(process.env.GEMINI_API_KEY);
