@@ -150,8 +150,15 @@ If misconfigured → API key leak guaranteed.
 
 ## 🌍 Deployment Options
 
-- Frontend → Vercel  
-- Backend → Render / Railway  
+- Frontend → Render  
+- Backend → Render
+
+---
+### Live Demo
+
+
+https://ai-code-review-frontend-rx94.onrender.com/
+
 
 ---
 
