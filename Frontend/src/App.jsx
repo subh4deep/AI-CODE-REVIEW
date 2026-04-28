@@ -134,13 +134,13 @@ export default function App() {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/ai/get-review`,
-        { code: prompt },
-        {
-          headers: { "Content-Type": "application/json" },
-          timeout: 20000, // 20 sec safety
-        }
-      );
+      `${import.meta.env.VITE_API_URL}/ai/get-review`,
+      { code: prompt },
+      {
+        headers: { "Content-Type": "application/json" },
+        timeout: 60000, // ✅ increased to 60 sec
+      }
+    );
 
       if (res.data?.success && typeof res.data.review === "string") {
         setReview(res.data.review);
