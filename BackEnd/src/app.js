@@ -6,7 +6,7 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "https://ai-code-review-frontend-rx94.onrender.com",
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }));;
 
