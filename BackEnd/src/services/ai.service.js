@@ -14,7 +14,7 @@ async function generateContent(prompt) {
   for (let i = 0; i < maxRetries; i++) {
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash", // ✅ stable + fast
+        model: "gemini-2.0-flash", // ✅ stable + fast
         contents: [
           {
             role: "system",
