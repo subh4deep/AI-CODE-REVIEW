@@ -99,7 +99,7 @@ export default function App() {
       return g ? Prism.highlight(c, g, L.prism) : c
     } catch { return c }
   }
-
+    console.log("API:", import.meta.env.VITE_API_URL);
     async function reviewCode() {
     if (loading) return;
 
